@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">PRECISION.array</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,9 +61,9 @@
 <script src="my-vignette_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <main id="main"><div class="page-header">
       <img src="" class="logo" alt=""><h1>PRECISION.array Vignette</h1>
-                        <h4 data-toc-skip class="author">Huei-Chung Huang, Qihang Yang</h4>
+                        <h4 data-toc-skip class="author">Huei-Chung Huang, Yilin Wu, Qihang Yang, Lixuan Qin</h4>
             
-            <h4 data-toc-skip class="date">2022-05-08</h4>
+            <h4 data-toc-skip class="date">2022-05-30</h4>
       
       
       <div class="d-none name"><code>my-vignette.Rmd</code></div>
@@ -412,7 +412,7 @@
                                     <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"V"</span>, <span class="st">"E"</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">32</span><span class="op">)</span><span class="op">)</span>,
                           <span class="st">"tr"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"E"</span>, <span class="st">"V"</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">64</span><span class="op">)</span>,
                           <span class="st">"te"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"V"</span>, <span class="st">"E"</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">32</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p>Next, for the training set, data were simulated through “virtual re-hybridization” by first assigning arrays to sample groups using a confounding design or a balanced design, and then summing the biological effect for a sample and the handling effect for its assigned array. For the test set, we used onlyt the biological effect data from the uniformly-handled dataset. Three study design functions assign arrays to samples (<code><a href="../reference/confounding.design.html">confounding.design()</a></code>, <code><a href="../reference/stratification.design.html">stratification.design()</a></code>, <code><a href="../reference/blocking.design.html">blocking.design()</a></code>). Finally, <code><a href="../reference/rehybridize.html">rehybridize()</a></code> is provided to sum biological effects to handling effects, following array-to-sample assignments.</p>
+<p>Next, for the training set, data were simulated through “virtual re-hybridization” by first assigning arrays to sample groups using a confounding design or a balanced design, and then summing the biological effect for a sample and the handling effect for its assigned array. For the test set, we used only the biological effect data from the uniformly-handled dataset. Three study design functions assign arrays to samples (<code><a href="../reference/confounding.design.html">confounding.design()</a></code>, <code><a href="../reference/stratification.design.html">stratification.design()</a></code>, <code><a href="../reference/blocking.design.html">blocking.design()</a></code>). Finally, <code><a href="../reference/rehybridize.html">rehybridize()</a></code> is provided to sum biological effects to handling effects, following array-to-sample assignments.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># complete confounding</span>
 <span class="va">cc.ind</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/confounding.design.html">confounding.design</a></span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">1</span>, num.array <span class="op">=</span> <span class="fl">128</span>, 
@@ -492,7 +492,7 @@
 <span class="co"># quantile normalize (normalize training data + frozen normalize test data)</span>
 <span class="va">data.qn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/quant.norm.html">quant.norm</a></span><span class="op">(</span>train <span class="op">=</span> <span class="va">train.dat</span>, test <span class="op">=</span> <span class="va">test.dat</span><span class="op">)</span>
 
-<span class="co"># varaince stabilizing normalize (normalize training data + frozen normalize test data)</span>
+<span class="co"># variance stabilizing normalize (normalize training data + frozen normalize test data)</span>
 <span class="va">data.vsn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/vs.norm.html">vs.norm</a></span><span class="op">(</span>train <span class="op">=</span> <span class="va">train.dat</span>, test <span class="op">=</span> <span class="va">test.dat</span><span class="op">)</span></code></pre></div>
 <p>To summarize replicate level data to unique probe level, based on within-probe medians, <code><a href="../reference/med.sum.pbset.html">med.sum.pbset()</a></code> can be used:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
@@ -843,12 +843,33 @@
 </tr>
 </tbody>
 </table>
+<p>Below is another example to create a SVM classification with specific parameters.</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">e1071</span><span class="op">)</span>
+
+<span class="st">"custom.intcv"</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">kfold</span> <span class="op">=</span> <span class="fl">10</span>, <span class="va">X</span>, <span class="va">y</span>, <span class="va">seed</span><span class="op">)</span><span class="op">{</span>
+  <span class="va">ptm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/proc.time.html" class="external-link">proc.time</a></span><span class="op">(</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="va">seed</span><span class="op">)</span>
+
+  <span class="va">svm_tune</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/e1071/man/tune.wrapper.html" class="external-link">tune.svm</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.matrix.html" class="external-link">data.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>, cost <span class="op">=</span> <span class="fl">10</span><span class="op">^</span><span class="op">(</span><span class="op">-</span><span class="fl">2</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>, gamma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>, <span class="fl">0.1</span>, <span class="fl">1</span><span class="op">)</span>, tunecontrol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/e1071/man/tune.control.html" class="external-link">tune.control</a></span><span class="op">(</span>cross <span class="op">=</span> <span class="va">kfold</span><span class="op">)</span><span class="op">)</span>
+
+  <span class="va">time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/proc.time.html" class="external-link">proc.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="va">ptm</span>
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mc <span class="op">=</span> <span class="va">svm_tune</span><span class="op">$</span><span class="va">best.performance</span>, time <span class="op">=</span> <span class="va">time</span>, model <span class="op">=</span> <span class="va">svm_tune</span><span class="op">$</span><span class="va">best.model</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="st">"custom.predict"</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">custom.intcv.model</span>, <span class="va">pred.obj</span>, <span class="va">pred.obj.group.id</span><span class="op">)</span><span class="op">{</span>
+
+  <span class="va">pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">custom.intcv.model</span><span class="op">$</span><span class="va">model</span>, newdata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">pred.obj</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">mc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tabulate.ext.err.func.html">tabulate.ext.err.func</a></span><span class="op">(</span><span class="va">pred</span>, <span class="va">pred.obj.group.id</span><span class="op">)</span>
+
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pred<span class="op">=</span><span class="va">pred</span>, mc<span class="op">=</span><span class="va">mc</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="simulation-result-manipulation-and-visualization">Simulation Result Manipulation and Visualization<a class="anchor" aria-label="anchor" href="#simulation-result-manipulation-and-visualization"></a>
 </h2>
 <p><code>PRECISION.array</code> output <code>R</code> objects resulted from <code><a href="../reference/precision.simulate.html">precision.simulate()</a></code> can be tidied into a list of data frames by <code><a href="../reference/extract.precision.error.html">extract.precision.error()</a></code>. The list of data frames is easier to manipulate. A plotting function <code><a href="../reference/plot.precision.html">plot.precision()</a></code> is offered to have a quick visualization on the simulation results.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># for outputs from either precision.simulate() or precision.simulate.flex()</span>
 <span class="va">precision.err.df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/extract.precision.error.html">extract.precision.error</a></span><span class="op">(</span>
   precision.obj.name <span class="op">=</span> <span class="st">"precision.results"</span><span class="op">)</span>
@@ -857,14 +878,14 @@
 <span class="fu"><a href="../reference/plot.precision.html">plot.precision</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">precision.err.df</span>, iflex <span class="op">=</span> <span class="cn">FALSE</span>, 
                mytitle <span class="op">=</span> <span class="st">"PRECISION results (misclassification error rate)"</span><span class="op">)</span></code></pre></div>
 <p><img src="my-vignette_files/figure-html/precision.vis-1.png" width="768"></p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># for PRECISION output from precision.simulate.flex()</span>
 <span class="fu"><a href="../reference/plot.precision.html">plot.precision</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">precision.results.flex</span><span class="op">)</span></code></pre></div>
 <div class="section level4">
 <h4 id="differential-expression-analysis">Differential expression analysis<a class="anchor" aria-label="anchor" href="#differential-expression-analysis"></a>
 </h4>
 <p>We provide <code>limma.pbset</code> to perform differential expression analysis. For instance, when reducing a biological signal, we first identified differentially expressed markers and then shrunk the sample group differences of each of the markers.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">uhdata.psl.nc</span> <span class="op">&lt;-</span> <span class="va">uhdata.psl</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">uhdata.psl</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">ctrl.genes</span>, <span class="op">]</span> <span class="co"># nc for non-control probes</span>
 
 <span class="va">group.id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/substr.html" class="external-link">substr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">uhdata.psl.nc</span><span class="op">)</span>, <span class="fl">7</span>, <span class="fl">7</span><span class="op">)</span>
@@ -873,7 +894,7 @@
                                group.id <span class="op">=</span> <span class="va">group.id</span>,
                                group.id.level <span class="op">=</span> <span class="va">group.id.level</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">limma.fit.uhdata</span><span class="op">$</span><span class="va">P.Value</span> <span class="op">&lt;</span> <span class="fl">0.01</span>, dnn <span class="op">=</span> <span class="st">"DE genes"</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">tab</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">limma.fit.uhdata</span><span class="op">$</span><span class="va">P.Value</span> <span class="op">&lt;</span> <span class="fl">0.01</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">tab</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DEA"</span>, <span class="st">"Count"</span><span class="op">)</span>
 <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tab</span>, rownames <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
@@ -898,7 +919,7 @@
 <h4 id="biological-signal-reduction">Biological signal reduction<a class="anchor" aria-label="anchor" href="#biological-signal-reduction"></a>
 </h4>
 <p>It may be necessary to manipulate the level of the biological signal (i.e., the mean group difference between sample group) in a molecular classification study. To manipulate the level of the signal, <code><a href="../reference/reduce.signal.html">reduce.signal()</a></code> can be used.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># reduced signal by half</span>
 <span class="va">group.id</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/substr.html" class="external-link">substr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">biological.effect.nc</span><span class="op">)</span>, <span class="fl">7</span>, <span class="fl">7</span><span class="op">)</span>
 <span class="va">redhalf.biological.effect.nc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/reduce.signal.html">reduce.signal</a></span><span class="op">(</span>biological.effect <span class="op">=</span> <span class="va">biological.effect.nc</span>,
@@ -932,15 +953,19 @@
 <li><p>location shift - per selected array, shifting all probe expressions up or down by a constant.</p></li>
 <li><p>scale change 1 - per selected array, expanding the variance of probes towards the array’s inter-quartiles; probes that are outside of inter-quartiles remain unchanged.</p></li>
 <li><p>scale change 2 - scaling all probe expressions in arrays by the power of constants that are different for each batch. In our training data, there are four batches.</p></li>
+<li><p>multiply - per selected array, multiply all probe expressions by a constant.</p></li>
 </ol>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">handling.effect.nc.tr</span> <span class="op">&lt;-</span> <span class="va">handling.effect.nc</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">64</span>, <span class="fl">129</span><span class="op">:</span><span class="fl">192</span><span class="op">)</span><span class="op">]</span>
 
 <span class="co"># location shift</span>
 <span class="va">handling.effect.nc.tr.shift</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/amplify.handling.effect.html">amplify.handling.effect</a></span><span class="op">(</span>handling.effect <span class="op">=</span> <span class="va">handling.effect.nc.tr</span>,
        amplify.array.id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">handling.effect.nc.tr</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">64</span><span class="op">]</span>,
        amplify.level <span class="op">=</span> <span class="fl">2</span>, type <span class="op">=</span> <span class="st">"shift"</span><span class="op">)</span>
-
+<span class="co"># multiply</span>
+<span class="va">handling.effect.nc.tr.multiply</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/amplify.handling.effect.html">amplify.handling.effect</a></span><span class="op">(</span>handling.effect <span class="op">=</span> <span class="va">handling.effect.nc.tr</span>,
+       amplify.array.id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">handling.effect.nc.tr</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">64</span><span class="op">]</span>,
+       amplify.level <span class="op">=</span> <span class="fl">2</span>, type <span class="op">=</span> <span class="st">"multiply"</span><span class="op">)</span>
 <span class="co"># scale change 1</span>
 <span class="va">handling.effect.nc.tr.scale1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/amplify.handling.effect.html">amplify.handling.effect</a></span><span class="op">(</span>handling.effect <span class="op">=</span> <span class="va">handling.effect.nc.tr</span>,
        amplify.array.id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">handling.effect.nc.tr</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">64</span><span class="op">]</span>,
@@ -957,40 +982,50 @@
        amplify.level <span class="op">=</span> <span class="va">amplify.level</span>,
        type <span class="op">=</span> <span class="st">"scale2"</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-<span class="va">rng</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">handling.effect.nc.tr</span>, <span class="va">handling.effect.nc.tr.shift</span>, 
+<span class="co">#par(mfrow = c(2, 2), mar = c(2, 2, 2, 1))</span>
+<span class="va">rng</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">handling.effect.nc.tr</span>, <span class="va">handling.effect.nc.tr.shift</span>, <span class="va">handling.effect.nc.tr.multiply</span>,
              <span class="va">handling.effect.nc.tr.scale1</span>, <span class="va">handling.effect.nc.tr.scale2</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">handling.effect.nc.tr</span>, main <span class="op">=</span> <span class="st">"Original"</span>,
-        ylim <span class="op">=</span> <span class="va">rng</span>, pch <span class="op">=</span> <span class="fl">20</span>, cex <span class="op">=</span> <span class="fl">0.2</span>, xaxt <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">handling.effect.nc.tr.shift</span>, main <span class="op">=</span> <span class="st">"Shift"</span>,
-        ylim <span class="op">=</span> <span class="va">rng</span>, pch <span class="op">=</span> <span class="fl">20</span>, cex <span class="op">=</span> <span class="fl">0.2</span>, xaxt <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">handling.effect.nc.tr.scale1</span>, main <span class="op">=</span> <span class="st">"Scaling 1"</span>,
-        ylim <span class="op">=</span> <span class="va">rng</span>, pch <span class="op">=</span> <span class="fl">20</span>, cex <span class="op">=</span> <span class="fl">0.2</span>, xaxt <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">handling.effect.nc.tr.scale2</span>, main <span class="op">=</span> <span class="st">"Scaling 2"</span>,
         ylim <span class="op">=</span> <span class="va">rng</span>, pch <span class="op">=</span> <span class="fl">20</span>, cex <span class="op">=</span> <span class="fl">0.2</span>, xaxt <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></code></pre></div>
 <p><img src="my-vignette_files/figure-html/amplify.handling.effect-1.png" width="672"></p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">handling.effect.nc.tr.shift</span>, main <span class="op">=</span> <span class="st">"Shift"</span>,
+        ylim <span class="op">=</span> <span class="va">rng</span>, pch <span class="op">=</span> <span class="fl">20</span>, cex <span class="op">=</span> <span class="fl">0.2</span>, xaxt <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></code></pre></div>
+<p><img src="my-vignette_files/figure-html/amplify.handling.effect-2.png" width="672"></p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">handling.effect.nc.tr.multiply</span>, main <span class="op">=</span> <span class="st">"multiply"</span>,
+        ylim <span class="op">=</span> <span class="va">rng</span>, pch <span class="op">=</span> <span class="fl">20</span>, cex <span class="op">=</span> <span class="fl">0.2</span>, xaxt <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></code></pre></div>
+<p><img src="my-vignette_files/figure-html/amplify.handling.effect-3.png" width="672"></p>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">handling.effect.nc.tr.scale1</span>, main <span class="op">=</span> <span class="st">"Scaling 1"</span>,
+        ylim <span class="op">=</span> <span class="va">rng</span>, pch <span class="op">=</span> <span class="fl">20</span>, cex <span class="op">=</span> <span class="fl">0.2</span>, xaxt <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></code></pre></div>
+<p><img src="my-vignette_files/figure-html/amplify.handling.effect-4.png" width="672"></p>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">handling.effect.nc.tr.scale2</span>, main <span class="op">=</span> <span class="st">"Scaling 2"</span>,
+        ylim <span class="op">=</span> <span class="va">rng</span>, pch <span class="op">=</span> <span class="fl">20</span>, cex <span class="op">=</span> <span class="fl">0.2</span>, xaxt <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></code></pre></div>
+<p><img src="my-vignette_files/figure-html/amplify.handling.effect-5.png" width="672"></p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="different-study-design-methods-and-normalization-methods-on-training-and-test-sets">Different Study Design Methods and Normalization Methods on Training and Test Sets<a class="anchor" aria-label="anchor" href="#different-study-design-methods-and-normalization-methods-on-training-and-test-sets"></a>
 </h2>
-<p>Furthermore, we care about the cooeperative effects of different study design methods and normalization methods, separately on training and test sets. The function <code><a href="../reference/precision.simulate.class.html">precision.simulate.class()</a></code>, which is built upon the <code><a href="../reference/precision.simulate.html">precision.simulate()</a></code> , can apply different study design methods and normalization methods on training set and test set, and then fit more kinds of classifiers on the training set and predict them on test set.</p>
+<p>Furthermore, we care about the cooperative effects of different study design methods and normalization methods, separately on training and test sets. The function <code><a href="../reference/precision.simulate.class.html">precision.simulate.class()</a></code>, which is built upon the <code><a href="../reference/precision.simulate.html">precision.simulate()</a></code> , can apply different study design methods and normalization methods on training set and test set, and then fit more kinds of classifiers on the training set and predict them on test set.</p>
 <p>The built-in designs are “NONE”, CC+“,”CC-“,”PC+“,”PC-“,”BLK“, and”STR" for “No Rehybridization”, “Complete Confounding 1”, “Complete Confounding 2”, “Partial Confounding 1”, “Partial Confounding 2”, “Blocking”, and “Stratification” in Qin et al.</p>
 <ul>
 <li><p>Study design methods on training set: {“NONE”, “CC+”, “CC-”, “PC+”, “PC-”, “BLK”, “STR”};</p></li>
 <li><p>Study design methods on test set: {“NONE”, “CC+”, “CC-”, “PC+”, “PC-”, “BLK”, “STR”};</p></li>
 </ul>
-<p>The build-in available normalization methods are “NN”, “MN”, “QN”, “fMN”, “fQN”, “pMN”, “pQN”, “fVSN”, for “No Normalization”, “Median Normalization”, “Quantile Normalization”, “Frozen Median Normalization”, “Frozen Quantile Normalization”, “Pool Median Normalization”, “Pool Quantile Normalization”, “Frozen Vairance Stability Normalization”.</p>
+<p>The build-in available normalization methods are “NN”, “MN”, “QN”, “fMN”, “fQN”, “pMN”, “pQN”, “fVSN”, for “No Normalization”, “Median Normalization”, “Quantile Normalization”, “Frozen Median Normalization”, “Frozen Quantile Normalization”, “Pool Median Normalization”, “Pool Quantile Normalization”, “Frozen Variance Stability Normalization”.</p>
 <ul>
 <li><p>Normalization methods on training set: {“NN”, “MN”, “QN”, “VSN”};</p></li>
 <li><p>Normalization methods on test set: {“NN”, “MN”, “QN”, “fMN”, “fQN”, “pMN”, “pQN”, “VSN”, “fVSN”}</p></li>
 </ul>
-<p>The build-in available classfication methods are “PAM”, “LASSO”, “ClaNC”, “ranFor”, “SVM”, “kNN” and “DLDA”, for “Prediction Analysis for Microarrays”, “Least Absolute Shrinkage and Selection Operator”, “Classification to Nearest Centroids”, “Random Forest”, “Support Vector Machine”, “K-Nearest Neighbors” and “Diagonal Linear Discriminant”. You can also use your own classification method by setting  as “custom”. The format to create <code>custom.intcv</code> and <code>custom.predict</code> please refers to other classification methods in this package.</p>
+<p>The build-in available classification methods are “PAM”, “LASSO”, “ClaNC”, “ranFor”, “SVM”, “kNN” and “DLDA”, for “Prediction Analysis for Microarrays”, “Least Absolute Shrinkage and Selection Operator”, “Classification to Nearest Centroids”, “Random Forest”, “Support Vector Machine”, “K-Nearest Neighbors” and “Diagonal Linear Discriminant”. You can also use your own classification method by setting  as “custom”. The format to create <code>custom.intcv</code> and <code>custom.predict</code> please refers to other classification methods in this package.</p>
 <ul>
 <li>Classifiers: {“PAM”, “LASSO”, “ClaNC”, “ranFor”, “SVM”, “kNN”, “DLDA”, “custom”}</li>
 </ul>
 <p>Choose the objective methods and express them in <code>train.design.met</code>, <code>test.design.met</code>, <code>train.norm.met</code>, <code>test.norm.met</code> and <code>class.met</code>. The output structure of one set of methods is similar to aforementioned <code><a href="../reference/precision.simulate.html">precision.simulate()</a></code>， with one more list called <code>ari_store</code>, which contains the adjusted rand index on test set.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">precision.class.results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/precision.simulate.class.html">precision.simulate.class</a></span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">0</span>, N <span class="op">=</span> <span class="fl">3</span>,
                           biological.effect.tr <span class="op">=</span> <span class="va">biological.effect.nc.tr</span>,    
                           biological.effect.te <span class="op">=</span> <span class="va">biological.effect.nc.te</span>,
@@ -1027,7 +1062,7 @@
 </tbody>
 </table>
 <p>To save time on calculation, there is an additional function called <code><a href="../reference/precision.simulate.multiclass.html">precision.simulate.multiclass()</a></code>. It replaces the <code>class.met</code>, which can only input one classification, with <code>class.list</code>, which can calculate several different classifications under the same combination of study design methods and normalization methods.</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">precision.multiclass.results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/precision.simulate.multiclass.html">precision.simulate.multiclass</a></span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">0</span>, N <span class="op">=</span> <span class="fl">3</span>,
                           biological.effect.tr <span class="op">=</span> <span class="va">biological.effect.nc.tr</span>,    
                           biological.effect.te <span class="op">=</span> <span class="va">biological.effect.nc.te</span>,
@@ -1062,24 +1097,24 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="right">0.1723077</td>
-<td align="right">0.250000</td>
+<td align="right">0.1335385</td>
+<td align="right">0.203125</td>
 <td align="right">0.1194872</td>
 <td align="right">0.187500</td>
 <td align="right">0.1640625</td>
 <td align="right">0.296875</td>
 </tr>
 <tr class="even">
-<td align="right">0.2107692</td>
-<td align="right">0.265625</td>
+<td align="right">0.2578462</td>
+<td align="right">0.234375</td>
 <td align="right">0.1379487</td>
 <td align="right">0.156250</td>
 <td align="right">0.1015625</td>
 <td align="right">0.203125</td>
 </tr>
 <tr class="odd">
-<td align="right">0.1633846</td>
-<td align="right">0.250000</td>
+<td align="right">0.1636923</td>
+<td align="right">0.218750</td>
 <td align="right">0.1092308</td>
 <td align="right">0.140625</td>
 <td align="right">0.1250000</td>
@@ -1087,35 +1122,14 @@
 </tr>
 </tbody>
 </table>
-<p>You can use <code><a href="../reference/plot.precision.multiclass.html">plot.precision.multiclass()</a></code> to plot the average enternal error rates from the output of <code><a href="../reference/precision.simulate.multiclass.html">precision.simulate.multiclass()</a></code>.</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<p>You can use <code><a href="../reference/plot.precision.multiclass.html">plot.precision.multiclass()</a></code> to plot the average external error rates from the output of <code><a href="../reference/precision.simulate.multiclass.html">precision.simulate.multiclass()</a></code>.</p>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot.precision.multiclass.html">plot.precision.multiclass</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">precision.multiclass.results</span>,
                           mytitle <span class="op">=</span> <span class="st">"Average external error rates"</span>,
                           class.order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"SVM"</span>, <span class="st">"kNN"</span>, <span class="st">"ClaNC"</span><span class="op">)</span>,
                           ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0.5</span><span class="op">)</span>,
                           save.name <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
 <p><img src="my-vignette_files/figure-html/error%20plot-1.png" width="480" style="display: block; margin: auto;"></p>
-<p>If you want to use your own classification, please create a function called <code>custom.intcv()</code> to do the model fitting and one called <code>custom.predict()</code> to do the model prediction. Below is an example to create a SVM classification with specific parameters.</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">e1071</span><span class="op">)</span>
-
-<span class="st">"custom.intcv"</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">kfold</span> <span class="op">=</span> <span class="fl">10</span>, <span class="va">X</span>, <span class="va">y</span>, <span class="va">seed</span><span class="op">)</span><span class="op">{</span>
-  <span class="va">ptm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/proc.time.html" class="external-link">proc.time</a></span><span class="op">(</span><span class="op">)</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="va">seed</span><span class="op">)</span>
-
-  <span class="va">svm_tune</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/e1071/man/tune.wrapper.html" class="external-link">tune.svm</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.matrix.html" class="external-link">data.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>, cost <span class="op">=</span> <span class="fl">10</span><span class="op">^</span><span class="op">(</span><span class="op">-</span><span class="fl">2</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>, gamma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.01</span>, <span class="fl">0.1</span>, <span class="fl">1</span><span class="op">)</span>, tunecontrol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/e1071/man/tune.control.html" class="external-link">tune.control</a></span><span class="op">(</span>cross <span class="op">=</span> <span class="va">kfold</span><span class="op">)</span><span class="op">)</span>
-
-  <span class="va">time</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/proc.time.html" class="external-link">proc.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="va">ptm</span>
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mc <span class="op">=</span> <span class="va">svm_tune</span><span class="op">$</span><span class="va">best.performance</span>, time <span class="op">=</span> <span class="va">time</span>, model <span class="op">=</span> <span class="va">svm_tune</span><span class="op">$</span><span class="va">best.model</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span>
-
-<span class="st">"custom.predict"</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">custom.intcv.model</span>, <span class="va">pred.obj</span>, <span class="va">pred.obj.group.id</span><span class="op">)</span><span class="op">{</span>
-
-  <span class="va">pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">custom.intcv.model</span><span class="op">$</span><span class="va">model</span>, newdata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">pred.obj</span><span class="op">)</span><span class="op">)</span>
-  <span class="va">mc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tabulate.ext.err.func.html">tabulate.ext.err.func</a></span><span class="op">(</span><span class="va">pred</span>, <span class="va">pred.obj.group.id</span><span class="op">)</span>
-
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pred<span class="op">=</span><span class="va">pred</span>, mc<span class="op">=</span><span class="va">mc</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
 <!-- ### Calculate confounding level between handling effects and sample groups -->
 <!-- We used a measurement to quantify confounding level between handling effects and sample group of interest[^8]. We used this measurement to cross-check our results based on confounding and balanced study designs. -->
 <!-- [^8]: Leek JT, Scharpf RB, Bravo HC, Simcha D, Langmead B, Johnson WE, Geman D, Baggerly K, Irizarry RA: Tackling the widespread and critical impact of batch effects in high-throughput data. Nature reviews Genetics 2010, 11(10):733-739. -->
@@ -1136,7 +1150,7 @@
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by Huei-Chung Huang.</p>
+<p>Developed by Huei-Chung Huang, Qihang Yang, Yilin Wu, Li-Xuan Qin.</p>
 </div>
 
 <div class="pkgdown-footer-right">

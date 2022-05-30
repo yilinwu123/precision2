@@ -12,7 +12,7 @@ Perform the simulation study in Qin et al. (see reference)."><!-- mathjax --><sc
     
     <a class="navbar-brand me-2" href="../index.html">PRECISION.array</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -227,6 +227,9 @@ For user-defined normalization method or classification method, please refer to 
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># randomly split biological effect data into training and test set with</span></span>
 <span class="r-in"><span class="co"># equal number of endometrial and ovarian samples</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="va">redhalf.biological.effect.nc</span> <span class="op">&lt;-</span> <span class="fu"><a href="reduce.signal.html">reduce.signal</a></span><span class="op">(</span>biological.effect <span class="op">=</span> <span class="va">biological.effect.nc</span>, group.id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/substr.html" class="external-link">substr</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">biological.effect.nc</span><span class="op">)</span>, <span class="fl">7</span>, <span class="fl">7</span><span class="op">)</span>,group.id.level <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"E"</span>, <span class="st">"V"</span><span class="op">)</span>,reduce.multiplier <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in"></span>
 <span class="r-in"><span class="va">biological.effect.train.ind</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">biological.effect.nc</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">group.id</span> <span class="op">==</span> <span class="st">"E"</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">64</span><span class="op">)</span>,</span>
 <span class="r-in">                                          <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">group.id</span> <span class="op">==</span> <span class="st">"V"</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">64</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></span>
 <span class="r-in"><span class="va">biological.effect.test.ind</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">biological.effect.nc</span><span class="op">)</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">biological.effect.nc</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">biological.effect.train.ind</span><span class="op">]</span></span>
@@ -245,7 +248,7 @@ For user-defined normalization method or classification method, please refer to 
 <span class="r-in"><span class="va">handling.effect.nc.te</span> <span class="op">&lt;-</span> <span class="va">handling.effect.nc</span><span class="op">[</span>, <span class="fl">65</span><span class="op">:</span><span class="fl">128</span><span class="op">]</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Simulation</span></span>
-<span class="r-in"><span class="va">precision.result</span> <span class="op">=</span> <span class="fu">precision.simulate.multiclass</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">0</span>, N <span class="op">=</span> <span class="fl">3</span>,</span>
+<span class="r-in"><span class="va">precision.result</span> <span class="op">=</span> <span class="fu"><a href="precision.simulate.class.html">precision.simulate.class</a></span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">0</span>, N <span class="op">=</span> <span class="fl">3</span>,</span>
 <span class="r-in">                                            biological.effect.tr <span class="op">=</span> <span class="va">biological.effect.nc.tr</span>,</span>
 <span class="r-in">                                            biological.effect.te <span class="op">=</span> <span class="va">biological.effect.nc.te</span>,</span>
 <span class="r-in">                                            handling.effect.tr <span class="op">=</span> <span class="va">handling.effect.nc.tr</span>,</span>
@@ -256,7 +259,7 @@ For user-defined normalization method or classification method, please refer to 
 <span class="r-in">                                            test.design.met <span class="op">=</span> <span class="st">"STR"</span>,</span>
 <span class="r-in">                                            train.norm.met <span class="op">=</span> <span class="st">"MN"</span>,</span>
 <span class="r-in">                                            test.norm.met <span class="op">=</span> <span class="st">"fMN"</span>,</span>
-<span class="r-in">                                            class.list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"SVM"</span>, <span class="st">"kNN"</span>, <span class="st">"LASSO"</span><span class="op">)</span>,</span>
+<span class="r-in">                                            class.met <span class="op">=</span> <span class="st">"LASSO"</span>,</span>
 <span class="r-in">                                            train.batch.id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">40</span>, <span class="fl">41</span><span class="op">:</span><span class="fl">64</span>, <span class="op">(</span><span class="fl">129</span><span class="op">:</span><span class="fl">152</span><span class="op">)</span><span class="op">-</span><span class="fl">64</span>, <span class="op">(</span><span class="fl">153</span><span class="op">:</span><span class="fl">192</span><span class="op">)</span><span class="op">-</span><span class="fl">64</span><span class="op">)</span>,</span>
 <span class="r-in">                                            test.batch.id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">(</span><span class="fl">65</span><span class="op">:</span><span class="fl">80</span><span class="op">)</span><span class="op">-</span><span class="fl">64</span>,<span class="op">(</span><span class="fl">81</span><span class="op">:</span><span class="fl">114</span><span class="op">)</span><span class="op">-</span><span class="fl">64</span>,<span class="op">(</span><span class="fl">115</span><span class="op">:</span><span class="fl">128</span><span class="op">)</span><span class="op">-</span><span class="fl">64</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"></span>
@@ -271,7 +274,7 @@ For user-defined normalization method or classification method, please refer to 
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Huei-Chung Huang.</p>
+  <p></p><p>Developed by Huei-Chung Huang, Qihang Yang, Yilin Wu, Li-Xuan Qin.</p>
 </div>
 
 <div class="pkgdown-footer-right">

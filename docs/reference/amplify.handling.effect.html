@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">PRECISION.array</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,15 +62,15 @@
 <dd><p>the estimated handling effect dataset to be modified. The dataset must have rows as probes and columns as samples.</p></dd>
 <dt>amplify.array.id</dt>
 <dd><p>the array IDs specified to have its handling effect amplified.
-If <code>type = "shift"</code> or <code>type = "scale1"</code>, a vector of array IDs must be supplied.
+If <code>type = "shift"</code> or <code>type = "scale1"</code> or <code>type = "multiply"</code>, a vector of array IDs must be supplied.
 If <code>type = "scale2"</code>, a list of vectors of array IDs must be supplied;
 each element in the list must be a vector of array IDs.</p></dd>
 <dt>amplify.level</dt>
 <dd><p>a multiplier specified to amplify handling effect by.
-A numeric multiplier must be supplied if <code>type = "shift"</code> or <code>type = "scale1"</code>.
+A numeric multiplier must be supplied if <code>type = "shift"</code> or <code>type = "scale1"</code> or <code>type = "multiply"</code>.
 A vector of multipliers must be supplied if type = "scale2" and it must have an equal length to the <code>amplify.array.id</code> list.</p></dd>
 <dt>type</dt>
-<dd><p>a choice of amplification type, either "shift", "scale1" or "scale2" for either location shift
+<dd><p>a choice of amplification type, either "shift", "multiply", "scale1" or "scale2" for either location shift
 or scale change. By default, <code>type = "shift"</code>.
 Location shift moves the entire specified arrays up or down by a constant.
 Scale change 1 re-scales expressions that are in inter-quartiles towards the first and the third quartiles Within each array;
@@ -100,6 +100,11 @@ Scale change 2 re-scales expressions by the power of constants that are specifie
 <span class="r-in"><span class="va">handling.effect.nc.tr.shift</span> <span class="op">&lt;-</span> <span class="fu">amplify.handling.effect</span><span class="op">(</span>handling.effect <span class="op">=</span> <span class="va">handling.effect.nc.tr</span>,</span>
 <span class="r-in">                                       amplify.array.id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">handling.effect.nc.tr</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">64</span><span class="op">]</span>,</span>
 <span class="r-in">                                       amplify.level <span class="op">=</span> <span class="fl">2</span>, type <span class="op">=</span> <span class="st">"shift"</span><span class="op">)</span></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># multiply</span></span>
+<span class="r-in"><span class="va">handling.effect.nc.tr.add</span> <span class="op">&lt;-</span> <span class="fu">amplify.handling.effect</span><span class="op">(</span>handling.effect <span class="op">=</span> <span class="va">handling.effect.nc.tr</span>,</span>
+<span class="r-in">                                        amplify.array.id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">handling.effect.nc.tr</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">64</span><span class="op">]</span>,</span>
+<span class="r-in">                                        amplify.level <span class="op">=</span> <span class="fl">2</span>, type <span class="op">=</span> <span class="st">"multiply"</span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># scale change 1</span></span>
 <span class="r-in"><span class="va">handling.effect.nc.tr.scale1</span> <span class="op">&lt;-</span> <span class="fu">amplify.handling.effect</span><span class="op">(</span>handling.effect <span class="op">=</span> <span class="va">handling.effect.nc.tr</span>,</span>
@@ -138,7 +143,7 @@ Scale change 2 re-scales expressions by the power of constants that are specifie
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Huei-Chung Huang.</p>
+  <p></p><p>Developed by Huei-Chung Huang, Qihang Yang, Yilin Wu, Li-Xuan Qin.</p>
 </div>
 
 <div class="pkgdown-footer-right">
